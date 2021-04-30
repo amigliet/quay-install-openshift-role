@@ -1,0 +1,1 @@
+# quay-install-openshift-role
