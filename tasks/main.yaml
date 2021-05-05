@@ -1,0 +1,58 @@
+# tasks/main.yaml
+
+- block:
+
+  - name: Ensure Red Hat Quay Operator Subscription is installed
+    community.kubernetes.k8s:
+      state: present
+      definition:
+        apiVersion: operators.coreos.com/v1alpha1
+        kind: Subscription
+        metadata:
+          name: quay-operator
+          namespace: openshift-operators
+        spec:
+          channel: quay-{{ quay_install_openshift_role_channel_version }}
+          installPlanApproval: Automatic
+          name: quay-operator
+          source: redhat-operators
+          sourceNamespace: openshift-marketplace
+          startingCSV: quay-operator.{{ quay_install_openshift_role_csv_version }}
+
+  - name: Ensure installPlanApproval is set to Manual
+    community.kubernetes.k8s:
+      state: present
+      definition:
+        apiVersion: operators.coreos.com/v1alpha1
+        kind: Subscription
+        metadata:
+          name: quay-operator
+          namespace: openshift-operators
+        spec:
+          channel: quay-{{ quay_install_openshift_role_channel_version }}
+          installPlanApproval: Manual
+          name: quay-operator
+          source: redhat-operators
+          sourceNamespace: openshift-marketplace
+          startingCSV: quay-operator.{{ quay_install_openshift_role_csv_version }}
+
+  - name: Create {{ quay_install_openshift_role_namespace }} namespace
+    community.kubernetes.k8s:
+      state: present
+      definition: "{{ lookup('template', 'quay-registry_namespace.j2') }}"
+
+  - name: Create config bundle Secret
+    community.kubernetes.k8s:
+      state: present
+      kind: Secret
+      name: "{{ quay_install_openshift_role_configBundleSecret_name }}"
+      namespace: "{{ quay_install_openshift_role_namespace }}"
+      definition: "{{ lookup('template', 'config-bundle_secret.j2') }}"
+    when: quay_install_openshift_role_cr_configBundleSecret
+
+  - name: Create QuayRegistry instance
+    community.kubernetes.k8s:
+      state: present
+      definition: "{{ lookup('template', 'quayregistries.quay.redhat.com.j2') }}"
+
+  delegate_to: localhost
