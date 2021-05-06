@@ -5,36 +5,14 @@
   - name: Ensure Red Hat Quay Operator Subscription is installed
     community.kubernetes.k8s:
       state: present
-      definition:
-        apiVersion: operators.coreos.com/v1alpha1
-        kind: Subscription
-        metadata:
-          name: quay-operator
-          namespace: openshift-operators
-        spec:
-          channel: quay-{{ quay_install_openshift_role_channel_version }}
-          installPlanApproval: Automatic
-          name: quay-operator
-          source: redhat-operators
-          sourceNamespace: openshift-marketplace
-          startingCSV: quay-operator.{{ quay_install_openshift_role_csv_version }}
+      definition: "{{ lookup('template', 'quay-operator_subscription.j2') }}"
 
   - name: Ensure installPlanApproval is set to Manual
     community.kubernetes.k8s:
       state: present
-      definition:
-        apiVersion: operators.coreos.com/v1alpha1
-        kind: Subscription
-        metadata:
-          name: quay-operator
-          namespace: openshift-operators
-        spec:
-          channel: quay-{{ quay_install_openshift_role_channel_version }}
-          installPlanApproval: Manual
-          name: quay-operator
-          source: redhat-operators
-          sourceNamespace: openshift-marketplace
-          startingCSV: quay-operator.{{ quay_install_openshift_role_csv_version }}
+      definition: "{{ lookup('template', 'quay-operator_subscription.j2') }}"
+    vars:
+      installPlanApproval: Manual
 
   - name: Create {{ quay_install_openshift_role_namespace }} namespace
     community.kubernetes.k8s:
