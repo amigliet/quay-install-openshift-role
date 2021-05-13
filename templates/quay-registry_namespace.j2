@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Namespace
 metadata:
   annotations:
-    {% if quay_install_openshift_role_nodeselector_enabled %}
+    {% if quay_install_openshift_role_nodeselector is defined %}
     openshift.io/node-selector: {{ quay_install_openshift_role_nodeselector }}
     {% endif %}
     scheduler.alpha.kubernetes.io/defaultTolerations: '[{"effect":"NoSchedule","key":"infra","value":"reserved"},{"effect":"NoExecute","key":"infra","value":"reserved"},{"effect":"NoSchedule","key":"node.ocs.openshift.io/storage","value":"true"}]'

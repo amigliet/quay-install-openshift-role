@@ -6,8 +6,7 @@ quay_install_openshift_role_csv_version: v3.5.1
 
 ## Quay namespace
 quay_install_openshift_role_namespace: quay-registry
-quay_install_openshift_role_nodeselector_enabled: false
-quay_install_openshift_role_nodeselector: ""
+#quay_install_openshift_role_nodeselector: ""
 
 ## Quay CR
 quay_install_openshift_role_cr_instance_name: instance
