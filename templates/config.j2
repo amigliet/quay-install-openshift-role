@@ -1,7 +1,21 @@
 ALLOW_PULLS_WITHOUT_STRICT_LOGGING: false
 AUTHENTICATION_TYPE: Database
 DEFAULT_TAG_EXPIRATION: 2w
-{% if quay_install_openshift_role_s3_gcs %}
+{% if quay_install_openshift_role_s3_backend == "AWS" and
+      quay_install_openshift_role_cr_objectstorage is sameas false %}
+DISTRIBUTED_STORAGE_CONFIG:
+  default:
+  - S3Storage
+  - host: {{ quay_install_openshift_role_s3_aws_host }}
+    s3_access_key: {{ quay_install_openshift_role_s3_access_key }}
+    s3_bucket: {{ quay_install_openshift_role_s3_bucket_name }}
+    s3_secret_key: {{ quay_install_openshift_role_s3_secret_key }}
+    storage_path: /datastorage/registry
+DISTRIBUTED_STORAGE_PREFERENCE:
+- default
+{% endif %}
+{% if quay_install_openshift_role_s3_backend == "GCS" and
+      quay_install_openshift_role_cr_objectstorage is sameas false %}
 DISTRIBUTED_STORAGE_CONFIG:
   default:
   - GoogleCloudStorage
@@ -13,13 +27,29 @@ DISTRIBUTED_STORAGE_DEFAULT_LOCATIONS: []
 DISTRIBUTED_STORAGE_PREFERENCE:
 - default
 {% endif %}
+{% if quay_install_openshift_role_s3_backend == "RGW" and
+      quay_install_openshift_role_cr_objectstorage is sameas false %}
+DISTRIBUTED_STORAGE_CONFIG:
+  default:
+  - RadosGWStorage
+  - access_key: {{ quay_install_openshift_role_s3_access_key }}
+    bucket_name: {{ quay_install_openshift_role_s3_bucket_name }}
+    hostname: {{ quay_install_openshift_role_s3_rgw_hostname }}
+    is_secure: false
+    port: {{ quay_install_openshift_role_s3_rgw_port | default('443') }}
+    secret_key: {{ quay_install_openshift_role_s3_secret_key }}
+    storage_path: /datastorage/registry
+DISTRIBUTED_STORAGE_PREFERENCE:
+- default
+{% endif %}
 ENTERPRISE_LOGO_URL: /static/img/RH_Logo_Quay_Black_UX-horizontal.svg
 FEATURE_BUILD_SUPPORT: false
 FEATURE_DIRECT_LOGIN: true
 FEATURE_MAILING: false
-{% if quay_install_openshift_role_s3_gcs %}
-FEATURE_PROXY_STORAGE: true
-FEATURE_STORAGE_REPLICATION: false
+{% if quay_install_openshift_role_s3_backend|length and
+      quay_install_openshift_role_cr_objectstorage is sameas false %}
+FEATURE_PROXY_STORAGE: {{ quay_install_openshift_role_proxy_storage | default(true) }}
+FEATURE_STORAGE_REPLICATION: {{ quay_install_openshift_role_storage_replication | default(false) }}
 {% endif %}
 REGISTRY_TITLE: Red Hat Quay
 REGISTRY_TITLE_SHORT: Red Hat Quay
