@@ -24,9 +24,14 @@ quay_install_openshift_role_cr_route: true
 quay_install_openshift_role_cr_configBundleSecret: false
 quay_install_openshift_role_configBundleSecret_name: "instance-quay-config-bundle-000ff"
 ```
+### Generic variables
+| Variable                                          | Default      |
+| :------------------------------------------------ | :----------: |
+| quay_install_openshift_role_feat_anonymous_access | True         |
+| quay_install_openshift_role_registry_title        | Red Hat Quay |
+| quay_install_openshift_role_registry_title_short  | Red Hat Quay |
 
 ### Storage variables
-
 | Variable                                        | Default | Choices       |
 | :---------------------------------------------- | :-----: | :-----------: |
 | quay_install_openshift_role_s3_backend          | -       | GCS, AWS, RGW |
