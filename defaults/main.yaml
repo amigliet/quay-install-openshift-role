@@ -21,3 +21,14 @@ quay_install_openshift_role_cr_route: true
 quay_install_openshift_role_cr_configBundleSecret: false
 quay_install_openshift_role_configBundleSecret_name: "instance-quay-config-bundle-000ff"
 
+## Quay Config Bundle
+quay_install_openshift_role_authentication_type: Database
+quay_install_openshift_role_s3_rgw_port: 443
+quay_install_openshift_role_feat_anonymous_access: true
+quay_install_openshift_role_feat_team_syncing: false
+quay_install_openshift_role_proxy_storage: true
+quay_install_openshift_role_storage_replication: false
+quay_install_openshift_role_ldap_email_attr: mail
+quay_install_openshift_role_ldap_uid_attr: uid
+quay_install_openshift_role_registry_title: "Red Hat Quay"
+quay_install_openshift_role_registry_title_short: "Red Hat Quay"
