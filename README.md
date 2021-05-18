@@ -75,7 +75,7 @@ vars:
 | quay_install_openshift_role_s3_secret_key       | -       | -             |
 | quay_install_openshift_role_s3_aws_host         | -       | -             |
 | quay_install_openshift_role_s3_rgw_hostname     | -       | -             |
-| quay_install_openshift_role_s3_rgw_port         | 443     | -             |
+| quay_install_openshift_role_s3_rgw_port         | -       | -             |
 | quay_install_openshift_role_proxy_storage       | True    | True, False   |
 | quay_install_openshift_role_storage_replication | False   | True, False   |
 

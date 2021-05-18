@@ -36,7 +36,9 @@ DISTRIBUTED_STORAGE_CONFIG:
     bucket_name: {{ quay_install_openshift_role_s3_bucket_name }}
     hostname: {{ quay_install_openshift_role_s3_rgw_hostname }}
     is_secure: false
+{% if quay_install_openshift_role_s3_rgw_port is defined %}
     port: {{ quay_install_openshift_role_s3_rgw_port }}
+{% endif %}
     secret_key: {{ quay_install_openshift_role_s3_secret_key }}
     storage_path: /datastorage/registry
 DISTRIBUTED_STORAGE_PREFERENCE:

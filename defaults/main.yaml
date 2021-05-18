@@ -23,7 +23,6 @@ quay_install_openshift_role_configBundleSecret_name: "instance-quay-config-bundl
 
 ## Quay Config Bundle
 quay_install_openshift_role_authentication_type: Database
-quay_install_openshift_role_s3_rgw_port: 443
 quay_install_openshift_role_feat_anonymous_access: true
 quay_install_openshift_role_feat_team_syncing: false
 quay_install_openshift_role_proxy_storage: true
