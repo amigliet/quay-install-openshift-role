@@ -5,20 +5,28 @@ metadata:
   namespace: {{ quay_install_openshift_role_namespace }}
 spec:
   components:
-   - kind: postgres
-     managed: {{ quay_install_openshift_role_cr_postgres }}
-   - kind: objectstorage
-     managed: {{ quay_install_openshift_role_cr_objectstorage }}
-   - kind: redis
-     managed: {{ quay_install_openshift_role_cr_redis }}
-   - kind: horizontalpodautoscaler
-     managed: {{ quay_install_openshift_role_cr_horizontalpodautoscaler }}
-   - kind: route
-     managed: {{ quay_install_openshift_role_cr_route }}
-   - kind: mirror
-     managed: {{ quay_install_openshift_role_cr_mirror }}
-   - kind: monitoring
-     managed: {{ quay_install_openshift_role_cr_monitoring }}
-   - kind: clair
-     managed: {{ quay_install_openshift_role_cr_clair }}
-  {% if quay_install_openshift_role_cr_configBundleSecret %}configBundleSecret: {{ quay_install_openshift_role_configBundleSecret_name }}{% endif %}
+    - kind: postgres
+      managed: {{ quay_install_openshift_role_cr_postgres }}
+    - kind: objectstorage
+      managed: {{ quay_install_openshift_role_cr_objectstorage }}
+    - kind: redis
+      managed: {{ quay_install_openshift_role_cr_redis }}
+    - kind: horizontalpodautoscaler
+      managed: {{ quay_install_openshift_role_cr_horizontalpodautoscaler }}
+    - kind: route
+{% if quay_install_openshift_role_extra_ca_cert_custom_ca is defined and
+      quay_install_openshift_role_ssl_cert is defined and
+      quay_install_openshift_role_ssl_key is defined %}
+      managed: False
+{% else %}
+      managed: {{ quay_install_openshift_role_cr_route }}
+{% endif %}
+    - kind: mirror
+      managed: {{ quay_install_openshift_role_cr_mirror }}
+    - kind: monitoring
+      managed: {{ quay_install_openshift_role_cr_monitoring }}
+    - kind: clair
+      managed: {{ quay_install_openshift_role_cr_clair }}
+{% if quay_install_openshift_role_cr_configBundleSecret %}
+  configBundleSecret: {{ quay_install_openshift_role_configBundleSecret_name }}
+{% endif %}

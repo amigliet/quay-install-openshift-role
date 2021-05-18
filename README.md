@@ -79,3 +79,34 @@ vars:
 | quay_install_openshift_role_proxy_storage       | True    | True, False   |
 | quay_install_openshift_role_storage_replication | False   | True, False   |
 
+### TLS Certificates variables
+
+| Variable                                            | Default  |
+| :-------------------------------------------------- | :------: |
+| quay_install_openshift_role_extra_ca_cert_custom_ca | -        |
+| quay_install_openshift_role_server_hostname         | -        |
+| quay_install_openshift_role_ssl_cert                | -        |
+| quay_install_openshift_role_ssl_key                 | -        |
+
+Usage example:
+```
+vars:
+  quay_install_openshift_role_server_hostname: quay.apps.mycluster.mydomain.com
+  quay_install_openshift_role_ssl_cert: "{{ lookup('file', 'mycert.crt') }}"
+  quay_install_openshift_role_ssl_key: "{{ lookup('file', 'mycert.key') }}"
+  quay_install_openshift_role_extra_ca_cert_custom_ca: "{{ lookup('file', 'ca-bundle.crt') }}"
+```
+
+The definition of these variables will automatically configure:
+```
+apiVersion: quay.redhat.com/v1
+kind: QuayRegistry
+metadata:
+[...]
+spec:
+  components:
+[...]
+    - kind: route
+      managed: False
+[...]
+```

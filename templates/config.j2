@@ -74,6 +74,9 @@ LDAP_USER_RDN:
 {% endif %}
 REGISTRY_TITLE: {{ quay_install_openshift_role_registry_title }}
 REGISTRY_TITLE_SHORT: {{ quay_install_openshift_role_registry_title_short }}
+{% if quay_install_openshift_role_server_hostname is defined %}
+SERVER_HOSTNAME: {{ quay_install_openshift_role_server_hostname }}
+{% endif %}
 {% if quay_install_openshift_role_super_users is defined %}
 SUPER_USERS:
 {% for item in quay_install_openshift_role_super_users %}
