@@ -2,7 +2,7 @@
 
 ## Red Hat Quay Operator Subscription variables
 quay_install_openshift_role_channel_version: v3.5
-quay_install_openshift_role_csv_version: v3.5.1
+quay_install_openshift_role_csv_version: v3.5.2
 
 ## Quay namespace
 quay_install_openshift_role_namespace: quay-registry
