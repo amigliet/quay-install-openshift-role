@@ -3,9 +3,11 @@
 Ansible role to install Red Hat Quay Operator on OpenShift.
 
 ## Requirements
-This role requires Kubernetes Collection which can be installed via Ansible Galaxy CLI:
+This role has been tested with Ansible 2.9 and the Kubernetes Collection version 1.2.1.
+
+The Kubernetes Collection can be installed via Ansible Galaxy CLI:
 ```
-ansible-galaxy collection install community.kubernetes
+ansible-galaxy collection install 'community.kubernetes:>=1.2.1,<2.0.0'
 ```
 
 ## Role Variables
@@ -70,10 +72,10 @@ AWS usage example:
   vars:
     quay_install_openshift_role_cr_objectstorage: false
     quay_install_openshift_role_cr_configBundleSecret: true
-    quay_install_openshift_role_s3_aws_host: <aws_host>
+    quay_install_openshift_role_s3_aws_host: "s3.amazonaws.com"
     quay_install_openshift_role_s3_backend: "AWS"
     quay_install_openshift_role_s3_access_key: <access_key>
-    quay_install_openshift_role_s3_bucket_name: bucket01
+    quay_install_openshift_role_s3_bucket_name: "bucket01"
     quay_install_openshift_role_s3_secret_key: <secret_key>
 ```
 
