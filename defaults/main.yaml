@@ -31,3 +31,7 @@ quay_install_openshift_role_ldap_email_attr: mail
 quay_install_openshift_role_ldap_uid_attr: uid
 quay_install_openshift_role_registry_title: "Red Hat Quay"
 quay_install_openshift_role_registry_title_short: "Red Hat Quay"
+
+# Extras
+quay_install_openshift_role_swagger_enabled: false
+

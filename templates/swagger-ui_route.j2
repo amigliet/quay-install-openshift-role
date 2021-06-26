@@ -1,0 +1,20 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: swagger-ui
+    app.kubernetes.io/component: swagger-ui
+    app.kubernetes.io/instance: swagger-ui
+  name: swagger-ui
+  namespace: {{ quay_install_openshift_role_namespace }}
+spec:
+  host: {{ quay_install_openshift_role_swagger_hostname }}
+  port:
+    targetPort: 8080-tcp
+  tls:
+    termination: edge
+  to:
+    kind: Service
+    name: swagger-ui
+    weight: 100
+  wildcardPolicy: None

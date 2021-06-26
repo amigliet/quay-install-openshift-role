@@ -133,6 +133,33 @@ spec:
 [...]
 ```
 
+### Swagger Variables (WIP)
+This feature is meant to be used on test environments.
+
+Warnings:
+  - The deployment requires being able to pull an image from docker.io,
+    which might be blocked by your proxy (if any) or not allowed as a trusted
+    registry on your OpenShift cluster (especially on production environments).
+  - The following variables may be changed in the future.
+
+| Variable                                     | Default |
+| :------------------------------------------- | :-----: |
+| quay_install_openshift_role_swagger_enabled  | False   |
+| quay_install_openshift_role_swagger_endpoint | -       |
+| quay_install_openshift_role_swagger_hostname | -       |
+
+Usage example:
+```
+  vars:
+    quay_install_openshift_role_swagger_enabled: true
+    quay_install_openshift_role_swagger_endpoint: "https://instance-quay-quay-registry.apps.mycluster.mydomain.com/api/v1/discovery"
+    quay_install_openshift_role_swagger_hostname: "swagger.apps.mycluster.mydomain.com"
+
+```
+
+## Role Tags
+- swagger
+
 ## Dependencies
 None.
 

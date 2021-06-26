@@ -1,5 +1,8 @@
 ALLOW_PULLS_WITHOUT_STRICT_LOGGING: false
 AUTHENTICATION_TYPE: {{ quay_install_openshift_role_authentication_type }}
+{% if quay_install_openshift_role_swagger_enabled is sameas true %}
+BROWSER_API_CALLS_XHR_ONLY: false
+{% endif %}
 DEFAULT_TAG_EXPIRATION: 2w
 {% if quay_install_openshift_role_s3_backend == "AWS" and
       quay_install_openshift_role_cr_objectstorage is sameas false %}

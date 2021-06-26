@@ -34,3 +34,8 @@
       definition: "{{ lookup('template', 'quayregistries.quay.redhat.com.j2') }}"
 
   delegate_to: localhost
+
+- name: Import Swagger UI tasks
+  import_tasks: swagger.yaml
+  tags:
+    - swagger
