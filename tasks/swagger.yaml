@@ -1,0 +1,22 @@
+
+- name: Create Swagger UI Deployment
+  community.kubernetes.k8s:
+    state: present
+    definition: "{{ lookup('template', 'swagger-ui_deployment.j2') }}"
+  when: quay_install_openshift_role_swagger_enabled | bool
+  delegate_to: localhost
+
+- name: Create Swagger UI Service
+  community.kubernetes.k8s:
+    state: present
+    definition: "{{ lookup('template', 'swagger-ui_service.j2') }}"
+  when: quay_install_openshift_role_swagger_enabled | bool
+  delegate_to: localhost
+
+- name: Create Swagger UI Route
+  community.kubernetes.k8s:
+    state: present
+    definition: "{{ lookup('template', 'swagger-ui_route.j2') }}"
+  when: quay_install_openshift_role_swagger_enabled | bool
+  delegate_to: localhost
+
