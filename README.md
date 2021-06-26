@@ -158,6 +158,7 @@ Usage example:
 ```
 
 ## Role Tags
+- install
 - swagger
 
 ## Dependencies
