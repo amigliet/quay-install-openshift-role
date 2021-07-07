@@ -14,9 +14,7 @@ spec:
     - kind: horizontalpodautoscaler
       managed: {{ quay_install_openshift_role_cr_horizontalpodautoscaler }}
     - kind: route
-{% if quay_install_openshift_role_extra_ca_cert_custom_ca is defined and
-      quay_install_openshift_role_ssl_cert is defined and
-      quay_install_openshift_role_ssl_key is defined %}
+{% if quay_install_openshift_role_server_hostname is defined %}
       managed: False
 {% else %}
       managed: {{ quay_install_openshift_role_cr_route }}

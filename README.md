@@ -20,6 +20,7 @@ For default variables see [defaults/main.yaml](defaults/main.yaml).
 | quay_install_openshift_role_registry_title        | Red Hat Quay |
 | quay_install_openshift_role_registry_title_short  | Red Hat Quay |
 | quay_install_openshift_role_super_users           | -            |
+| quay_install_openshift_role_validate_certs        | True         |
 
 ### Authentication variables
 | Variable                                        | Default  |

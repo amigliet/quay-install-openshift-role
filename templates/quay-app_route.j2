@@ -1,0 +1,17 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ quay_install_openshift_role_cr_instance_name }}-unmanaged-quay
+  namespace: {{ quay_install_openshift_role_namespace }}
+spec:
+  host: {{ quay_install_openshift_role_server_hostname }}
+  port:
+    targetPort: https
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: passthrough
+  to:
+    kind: Service
+    name: {{ quay_install_openshift_role_cr_instance_name }}-quay-app
+    weight: 100
+  wildcardPolicy: None

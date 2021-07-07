@@ -3,12 +3,14 @@
   community.kubernetes.k8s:
     state: present
     definition: "{{ lookup('template', 'quay-operator_subscription.j2') }}"
+    validate_certs: "{{ quay_install_openshift_role_validate_certs | default(True) }}"
   delegate_to: localhost
 
 - name: Ensure installPlanApproval is set to Manual
   community.kubernetes.k8s:
     state: present
     definition: "{{ lookup('template', 'quay-operator_subscription.j2') }}"
+    validate_certs: "{{ quay_install_openshift_role_validate_certs | default(True) }}"
   delegate_to: localhost
   vars:
     installPlanApproval: Manual
@@ -17,6 +19,7 @@
   community.kubernetes.k8s:
     state: present
     definition: "{{ lookup('template', 'quay-registry_namespace.j2') }}"
+    validate_certs: "{{ quay_install_openshift_role_validate_certs | default(True) }}"
   delegate_to: localhost
 
 - name: Create config bundle Secret
@@ -26,6 +29,7 @@
     name: "{{ quay_install_openshift_role_configBundleSecret_name }}"
     namespace: "{{ quay_install_openshift_role_namespace }}"
     definition: "{{ lookup('template', 'config-bundle_secret.j2') }}"
+    validate_certs: "{{ quay_install_openshift_role_validate_certs | default(True) }}"
   delegate_to: localhost
   when: quay_install_openshift_role_cr_configBundleSecret
 
@@ -33,5 +37,13 @@
   community.kubernetes.k8s:
     state: present
     definition: "{{ lookup('template', 'quayregistries.quay.redhat.com.j2') }}"
+    validate_certs: "{{ quay_install_openshift_role_validate_certs | default(True) }}"
   delegate_to: localhost
 
+- name: Create custom Quay's App Route using SERVER_HOSTNAME variable
+  community.kubernetes.k8s:
+    state: present
+    definition: "{{ lookup('template', 'quay-app_route.j2') }}"
+    validate_certs: "{{ quay_install_openshift_role_validate_certs | default(True) }}"
+  delegate_to: localhost
+  when: quay_install_openshift_role_server_hostname is defined
