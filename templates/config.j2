@@ -77,9 +77,16 @@ LDAP_USER_RDN:
 - {{ item }}
 {% endfor %}
 {% endif %}
+{% if quay_install_openshift_role_server_hostname is defined
+      and quay_install_openshift_role_ssl_cert is defined
+      and quay_install_openshift_role_ssl_key is defined %}
+PREFERRED_URL_SCHEME: https
+{% endif %}
 REGISTRY_TITLE: {{ quay_install_openshift_role_registry_title }}
 REGISTRY_TITLE_SHORT: {{ quay_install_openshift_role_registry_title_short }}
-{% if quay_install_openshift_role_server_hostname is defined %}
+{% if quay_install_openshift_role_server_hostname is defined
+      and quay_install_openshift_role_ssl_cert is defined
+      and quay_install_openshift_role_ssl_key is defined %}
 SERVER_HOSTNAME: {{ quay_install_openshift_role_server_hostname }}
 {% endif %}
 {% if quay_install_openshift_role_super_users is defined %}
