@@ -1,12 +1,19 @@
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
+  labels:
+    operators.coreos.com/quay-operator.quay-registry: ""
   name: quay-operator
+{% if quay_install_openshift_role_operator_all_namespaces is sameas true %}
   namespace: openshift-operators
+{% else %}
+  namespace: {{ quay_install_openshift_role_namespace }}
+{% endif %}
 spec:
-  channel: quay-{{ quay_install_openshift_role_channel_version }}
+  channel: {{ quay_install_openshift_role_channel }}
   installPlanApproval: {{ installPlanApproval | default('Automatic') }}
   name: quay-operator
   source: redhat-operators
   sourceNamespace: openshift-marketplace
   startingCSV: quay-operator.{{ quay_install_openshift_role_csv_version }}
+

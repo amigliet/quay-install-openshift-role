@@ -1,0 +1,57 @@
+{% if quay_install_openshift_role_s3_backend == "AWS" and
+      quay_install_openshift_role_cr_objectstorage is sameas false %}
+DISTRIBUTED_STORAGE_CONFIG:
+  s3Storage:
+    - S3Storage
+    - host: {{ quay_install_openshift_role_s3_aws_host }}
+      s3_access_key: {{ quay_install_openshift_role_s3_access_key }}
+      s3_secret_key: {{ quay_install_openshift_role_s3_secret_key }}
+      s3_bucket: {{ quay_install_openshift_role_s3_bucket_name }}
+      storage_path: /datastorage/registry
+DISTRIBUTED_STORAGE_DEFAULT_LOCATIONS: []
+DISTRIBUTED_STORAGE_PREFERENCE:
+    - s3Storage
+{% endif %}
+{% if quay_install_openshift_role_s3_backend == "GCS" and
+      quay_install_openshift_role_cr_objectstorage is sameas false %}
+DISTRIBUTED_STORAGE_CONFIG:
+    googleCloudStorage:
+        - GoogleCloudStorage
+        - access_key: {{ quay_install_openshift_role_s3_access_key }}
+          bucket_name: {{ quay_install_openshift_role_s3_bucket_name }}
+          secret_key: {{ quay_install_openshift_role_s3_secret_key }}
+          storage_path: /datastorage/registry
+DISTRIBUTED_STORAGE_DEFAULT_LOCATIONS: []
+DISTRIBUTED_STORAGE_PREFERENCE:
+    - googleCloudStorage
+{% endif %}
+{% if quay_install_openshift_role_s3_backend == "RGW" and
+      quay_install_openshift_role_cr_objectstorage is sameas false %}
+DISTRIBUTED_STORAGE_CONFIG:
+  radosGWStorage:
+    - RadosGWStorage
+    - access_key: {{ quay_install_openshift_role_s3_access_key }}
+      secret_key: {{ quay_install_openshift_role_s3_secret_key }}
+      bucket_name: {{ quay_install_openshift_role_s3_bucket_name }}
+      hostname: {{ quay_install_openshift_role_s3_rgw_hostname }}
+      is_secure: {{ quay_install_openshift_role_s3_is_secure }}
+      port: {{ quay_install_openshift_role_s3_rgw_port }}
+      storage_path: /datastorage/registry
+DISTRIBUTED_STORAGE_DEFAULT_LOCATIONS: []
+DISTRIBUTED_STORAGE_PREFERENCE:
+    - default
+{% endif %}
+{% if quay_install_openshift_role_s3_backend == "RHOCS" and
+      quay_install_openshift_role_cr_objectstorage is sameas false %}
+DISTRIBUTED_STORAGE_CONFIG:
+  rhocsStorage:
+    - RHOCSStorage
+    - access_key: {{ quay_install_openshift_role_s3_access_key }}
+      secret_key: {{ quay_install_openshift_role_s3_secret_key }}
+      bucket_name: {{ quay_install_openshift_role_s3_bucket_name }}
+      hostname: {{ quay_install_openshift_role_s3_rhocs_hostname }}
+      is_secure: {{ quay_install_openshift_role_s3_is_secure }}
+      port: {{ quay_install_openshift_role_s3_rhocs_port }}
+      storage_path: /datastorage/registry
+{% endif %}
+

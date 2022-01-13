@@ -1,0 +1,11 @@
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  generateName: quay-registry-
+  annotations:
+    olm.providedAPIs: 'QuayEcosystem.v1alpha1.redhatcop.redhat.io,QuayRegistry.v1.quay.redhat.com'
+  name: quay-registry-mgb3z
+  namespace: {{ quay_install_openshift_role_namespace }}
+spec:
+  targetNamespaces:
+    - {{ quay_install_openshift_role_namespace }}

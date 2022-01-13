@@ -4,50 +4,10 @@ AUTHENTICATION_TYPE: {{ quay_install_openshift_role_authentication_type }}
 BROWSER_API_CALLS_XHR_ONLY: false
 {% endif %}
 DEFAULT_TAG_EXPIRATION: 2w
-{% if quay_install_openshift_role_s3_backend == "AWS" and
-      quay_install_openshift_role_cr_objectstorage is sameas false %}
-DISTRIBUTED_STORAGE_CONFIG:
-  default:
-  - S3Storage
-  - host: {{ quay_install_openshift_role_s3_aws_host }}
-    s3_access_key: {{ quay_install_openshift_role_s3_access_key }}
-    s3_bucket: {{ quay_install_openshift_role_s3_bucket_name }}
-    s3_secret_key: {{ quay_install_openshift_role_s3_secret_key }}
-    storage_path: /datastorage/registry
-DISTRIBUTED_STORAGE_PREFERENCE:
-- default
+{% if quay_install_openshift_role_cr_objectstorage is sameas false %}
+{{ lookup('template', 'storage.j2') }}
 {% endif %}
-{% if quay_install_openshift_role_s3_backend == "GCS" and
-      quay_install_openshift_role_cr_objectstorage is sameas false %}
-DISTRIBUTED_STORAGE_CONFIG:
-  default:
-  - GoogleCloudStorage
-  - access_key: {{ quay_install_openshift_role_s3_access_key }}
-    bucket_name: {{ quay_install_openshift_role_s3_bucket_name }}
-    secret_key: {{ quay_install_openshift_role_s3_secret_key }}
-    storage_path: /datastorage/registry
-DISTRIBUTED_STORAGE_DEFAULT_LOCATIONS: []
-DISTRIBUTED_STORAGE_PREFERENCE:
-- default
-{% endif %}
-{% if quay_install_openshift_role_s3_backend == "RGW" and
-      quay_install_openshift_role_cr_objectstorage is sameas false %}
-DISTRIBUTED_STORAGE_CONFIG:
-  default:
-  - RadosGWStorage
-  - access_key: {{ quay_install_openshift_role_s3_access_key }}
-    bucket_name: {{ quay_install_openshift_role_s3_bucket_name }}
-    hostname: {{ quay_install_openshift_role_s3_rgw_hostname }}
-    is_secure: false
-{% if quay_install_openshift_role_s3_rgw_port is defined %}
-    port: {{ quay_install_openshift_role_s3_rgw_port }}
-{% endif %}
-    secret_key: {{ quay_install_openshift_role_s3_secret_key }}
-    storage_path: /datastorage/registry
-DISTRIBUTED_STORAGE_PREFERENCE:
-- default
-{% endif %}
-ENTERPRISE_LOGO_URL: /static/img/RH_Logo_Quay_Black_UX-horizontal.svg
+ENTERPRISE_LOGO_URL: /static/img/quay-horizontal-color.svg
 FEATURE_ANONYMOUS_ACCESS: {{ quay_install_openshift_role_feat_anonymous_access }}
 FEATURE_BUILD_SUPPORT: false
 FEATURE_DIRECT_LOGIN: true
@@ -77,16 +37,14 @@ LDAP_USER_RDN:
 - {{ item }}
 {% endfor %}
 {% endif %}
-{% if quay_install_openshift_role_server_hostname is defined
-      and quay_install_openshift_role_ssl_cert is defined
-      and quay_install_openshift_role_ssl_key is defined %}
-PREFERRED_URL_SCHEME: https
-{% endif %}
 REGISTRY_TITLE: {{ quay_install_openshift_role_registry_title }}
 REGISTRY_TITLE_SHORT: {{ quay_install_openshift_role_registry_title_short }}
 {% if quay_install_openshift_role_server_hostname is defined
+      and not quay_install_openshift_role_cr_tls
       and quay_install_openshift_role_ssl_cert is defined
       and quay_install_openshift_role_ssl_key is defined %}
+EXTERNAL_TLS_TERMINATION: false
+PREFERRED_URL_SCHEME: https
 SERVER_HOSTNAME: {{ quay_install_openshift_role_server_hostname }}
 {% endif %}
 {% if quay_install_openshift_role_super_users is defined %}

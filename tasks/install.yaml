@@ -1,4 +1,11 @@
 
+- name: Create {{ quay_install_openshift_role_namespace }} namespace
+  community.kubernetes.k8s:
+    state: present
+    definition: "{{ lookup('template', 'quay-registry_namespace.j2') }}"
+    validate_certs: "{{ quay_install_openshift_role_validate_certs | default(True) }}"
+  delegate_to: localhost
+
 - name: Ensure Red Hat Quay Operator Subscription is installed
   community.kubernetes.k8s:
     state: present
@@ -15,12 +22,13 @@
   vars:
     installPlanApproval: Manual
 
-- name: Create {{ quay_install_openshift_role_namespace }} namespace
+- name: Create operatorgroup if quay operator is installed into specific namespace
   community.kubernetes.k8s:
     state: present
-    definition: "{{ lookup('template', 'quay-registry_namespace.j2') }}"
+    definition: "{{ lookup('template', 'quay-operatorgroup_namespaced.j2') }}"
     validate_certs: "{{ quay_install_openshift_role_validate_certs | default(True) }}"
   delegate_to: localhost
+  when: not quay_install_openshift_role_operator_all_namespaces
 
 - name: Create config bundle Secret
   community.kubernetes.k8s:
@@ -46,4 +54,14 @@
     definition: "{{ lookup('template', 'quay-app_route.j2') }}"
     validate_certs: "{{ quay_install_openshift_role_validate_certs | default(True) }}"
   delegate_to: localhost
-  when: quay_install_openshift_role_server_hostname is defined
+  when:
+    - quay_install_openshift_role_server_hostname is defined
+    - not quay_install_openshift_role_cr_route
+
+- name: Create Quay's Config Editor Route when route component is unmanaged
+  community.kubernetes.k8s:
+    state: present
+    definition: "{{ lookup('template', 'quay-config-editor_route.j2') }}"
+    validate_certs: "{{ quay_install_openshift_role_validate_certs | default(True) }}"
+  delegate_to: localhost
+  when: not quay_install_openshift_role_cr_route
