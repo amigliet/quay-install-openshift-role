@@ -5,5 +5,5 @@ metadata:
     {% if quay_install_openshift_role_nodeselector is defined %}
     openshift.io/node-selector: {{ quay_install_openshift_role_nodeselector }}
     {% endif %}
-    scheduler.alpha.kubernetes.io/defaultTolerations: '[{"effect":"NoSchedule","key":"infra","value":"reserved"},{"effect":"NoExecute","key":"infra","value":"reserved"},{"effect":"NoSchedule","key":"node.ocs.openshift.io/storage","value":"true"}]'
+    scheduler.alpha.kubernetes.io/defaultTolerations: '{{ quay_install_openshift_role_defaultTolerations }}'
   name: {{ quay_install_openshift_role_namespace }}

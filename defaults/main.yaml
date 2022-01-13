@@ -1,12 +1,14 @@
 # defaults/main.yaml
 
 ## Red Hat Quay Operator Subscription variables
-quay_install_openshift_role_channel_version: v3.5
-quay_install_openshift_role_csv_version: v3.5.4
+quay_install_openshift_role_channel: stable-3.6
+quay_install_openshift_role_csv_version: v3.6.2
+quay_install_openshift_role_operator_all_namespaces: true # if set to false, then operator installation is namespaced
 
 ## Quay namespace
 quay_install_openshift_role_namespace: quay-registry
 #quay_install_openshift_role_nodeselector: ""
+quay_install_openshift_role_defaultTolerations: '[{"operator": "Exists", "effect": "NoSchedule", "key": "node-role.kubernetes.io/infra"},{"effect":"NoSchedule","key":"infra","value":"reserved"},{"effect":"NoExecute","key":"infra","value":"reserved"}]'
 
 ## Quay CR
 quay_install_openshift_role_cr_instance_name: instance
@@ -18,6 +20,7 @@ quay_install_openshift_role_cr_objectstorage: true
 quay_install_openshift_role_cr_postgres: true
 quay_install_openshift_role_cr_redis: true
 quay_install_openshift_role_cr_route: true
+quay_install_openshift_role_cr_tls: true
 quay_install_openshift_role_cr_configBundleSecret: false
 quay_install_openshift_role_configBundleSecret_name: "instance-quay-config-bundle-000ff"
 
@@ -31,6 +34,12 @@ quay_install_openshift_role_ldap_email_attr: mail
 quay_install_openshift_role_ldap_uid_attr: uid
 quay_install_openshift_role_registry_title: "Red Hat Quay"
 quay_install_openshift_role_registry_title_short: "Red Hat Quay"
+quay_install_openshift_role_s3_rgw_port: 443
+quay_install_openshift_role_s3_rhocs_port: 443
+quay_install_openshift_role_s3_is_secure: true
+quay_install_openshift_role_s3_rhocs_hostname: s3.openshift-storage.svc.cluster.local
+quay_install_openshift_role_s3_rgw_hostname: s3.openshift-storage.svc
+quay_install_openshift_role_s3_backend: ''
 
 # Extras
 quay_install_openshift_role_swagger_enabled: false

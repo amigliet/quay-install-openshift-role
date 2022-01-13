@@ -1,0 +1,16 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ quay_install_openshift_role_cr_instance_name }}-unmanaged-quay-config-editor
+  namespace: {{ quay_install_openshift_role_namespace }}
+spec:
+  port:
+    targetPort: http
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  to:
+    kind: Service
+    name: {{ quay_install_openshift_role_cr_instance_name }}-quay-config-editor
+    weight: 100
+  wildcardPolicy: None

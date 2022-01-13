@@ -1,6 +1,8 @@
 apiVersion: quay.redhat.com/v1
 kind: QuayRegistry
 metadata:
+  finalizers:
+    - quay-operator/finalizer
   name: {{ quay_install_openshift_role_cr_instance_name }}
   namespace: {{ quay_install_openshift_role_namespace }}
 spec:
@@ -14,15 +16,17 @@ spec:
     - kind: horizontalpodautoscaler
       managed: {{ quay_install_openshift_role_cr_horizontalpodautoscaler }}
     - kind: route
-{% if quay_install_openshift_role_server_hostname is defined %}
-      managed: False
-{% else %}
       managed: {{ quay_install_openshift_role_cr_route }}
-{% endif %}
     - kind: mirror
       managed: {{ quay_install_openshift_role_cr_mirror }}
+    - kind: tls
+      managed: {{ quay_install_openshift_role_cr_tls }}
     - kind: monitoring
+{% if quay_install_openshift_role_operator_all_namespaces %}
       managed: {{ quay_install_openshift_role_cr_monitoring }}
+{% else %}
+      managed: False
+{% endif %}
     - kind: clair
       managed: {{ quay_install_openshift_role_cr_clair }}
 {% if quay_install_openshift_role_cr_configBundleSecret %}
