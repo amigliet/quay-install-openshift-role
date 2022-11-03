@@ -23,18 +23,19 @@ For default variables see [defaults/main.yaml](defaults/main.yaml).
 | quay_install_openshift_role_validate_certs        | True         |
 
 ### Authentication variables
-| Variable                                        | Default  |
-| :---------------------------------------------- | :------: |
-| quay_install_openshift_role_authentication_type | Database |
-| quay_install_openshift_role_feat_team_syncing   | false    |
-| quay_install_openshift_role_ldap_admin_dn       | -        |
-| quay_install_openshift_role_ldap_admin_passwd   | -        |
-| quay_install_openshift_role_ldap_base_dn        | -        |
-| quay_install_openshift_role_ldap_email_attr     | mail     |
-| quay_install_openshift_role_ldap_uid_attr       | uid      |
-| quay_install_openshift_role_ldap_uri            | -        |
-| quay_install_openshift_role_ldap_user_filter    | -        |
-| quay_install_openshift_role_ldap_user_rdn       | -        |
+| Variable                                             | Default  |
+| :--------------------------------------------------  | :------: |
+| quay_install_openshift_role_authentication_type      | Database |
+| quay_install_openshift_role_feat_team_syncing        | false    |
+| quay_install_openshift_role_ldap_admin_dn            | -        |
+| quay_install_openshift_role_ldap_admin_passwd        | -        |
+| quay_install_openshift_role_ldap_base_dn             | -        |
+| quay_install_openshift_role_ldap_email_attr          | mail     |
+| quay_install_openshift_role_ldap_uid_attr            | uid      |
+| quay_install_openshift_role_ldap_uri                 | -        |
+| quay_install_openshift_role_ldap_user_filter         | -        |
+| quay_install_openshift_role_ldap_user_rdn            | -        |
+| quay_install_openshift_role_ldap_secondary_user_rdns | -        |
 
 Usage example for LDAP identity provider:
 ```
@@ -53,6 +54,9 @@ Usage example for LDAP identity provider:
     quay_install_openshift_role_ldap_user_rdn:
       - ou=users
       - ou=employees
+    quay_install_openshift_role_ldap_secondary_user_rdns:
+       - ou=robots
+       - ou=serviceaccounts,ou=folder
 ```
 
 ### Storage variables
