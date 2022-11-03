@@ -36,6 +36,12 @@ LDAP_USER_RDN:
 {% for item in quay_install_openshift_role_ldap_user_rdn %}
 - {{ item }}
 {% endfor %}
+{% if quay_install_openshift_role_ldap_secondary_user_rdns is defined %}
+LDAP_SECONDARY_USER_RDNS:
+{% for item in quay_install_openshift_role_ldap_secondary_user_rdns %}
+- {{ item }}
+{% endfor %}
+{% endif %}
 {% endif %}
 REGISTRY_TITLE: {{ quay_install_openshift_role_registry_title }}
 REGISTRY_TITLE_SHORT: {{ quay_install_openshift_role_registry_title_short }}
