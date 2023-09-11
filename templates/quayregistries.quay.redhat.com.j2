@@ -29,6 +29,8 @@ spec:
 {% endif %}
     - kind: clair
       managed: {{ quay_install_openshift_role_cr_clair }}
+    - kind: clairpostgres
+      managed: {{ quay_install_openshift_role_cr_clair }}
 {% if quay_install_openshift_role_cr_configBundleSecret %}
   configBundleSecret: {{ quay_install_openshift_role_configBundleSecret_name }}
 {% endif %}

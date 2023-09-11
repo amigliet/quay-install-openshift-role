@@ -1,8 +1,8 @@
 # defaults/main.yaml
 
 ## Red Hat Quay Operator Subscription variables
-quay_install_openshift_role_channel: stable-3.6
-quay_install_openshift_role_csv_version: v3.6.2
+quay_install_openshift_role_channel: stable-3.9
+quay_install_openshift_role_csv_version: v3.9.1
 quay_install_openshift_role_operator_all_namespaces: true # if set to false, then operator installation is namespaced
 
 ## Quay namespace
