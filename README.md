@@ -14,14 +14,30 @@ ansible-galaxy collection install 'community.kubernetes:>=1.2.1,<2.0.0'
 For default variables see [defaults/main.yaml](defaults/main.yaml).
 
 ### Generic variables
-| Variable                                                     | Default      |
-| :----------------------------------------------------------- | :----------: |
-| quay_install_openshift_role_feat_anonymous_access            | True         |
-| quay_install_openshift_role_registry_title                   | Red Hat Quay |
-| quay_install_openshift_role_registry_title_short             | Red Hat Quay |
-| quay_install_openshift_role_super_users                      | -            |
-| quay_install_openshift_role_validate_certs                   | True         |
-| quay_install_openshift_role_operator_subscription_config_env | -            |
+| Variable                                                          | Default      |
+| :---------------------------------------------------------------- | :----------: |
+| quay_install_openshift_role_feat_anonymous_access                 | True         |
+| quay_install_openshift_role_registry_title                        | Red Hat Quay |
+| quay_install_openshift_role_registry_title_short                  | Red Hat Quay |
+| quay_install_openshift_role_super_users                           | -            |
+| quay_install_openshift_role_validate_certs                        | True         |
+| quay_install_openshift_role_operator_subscription_config_env      | -            |
+| quay_install_openshift_role_cr_postgres_overrides_volume_size     | -            |
+| quay_install_openshift_role_cr_mirror_overrides_replicas          | -            |
+| quay_install_openshift_role_cr_quay                               | true         |
+| quay_install_openshift_role_cr_quay_overrides_env                 | -            |
+| quay_install_openshift_role_cr_quay_overrides_replicas            | -            |
+| quay_install_openshift_role_action_log_archive_location           | -            |
+| quay_install_openshift_role_action_log_archive_path               | -            |
+| quay_install_openshift_role_action_log_rotation_threshold         | -            |
+| quay_install_openshift_role_feat_action_log_rotation              | -            |
+| quay_install_openshift_role_tag_expiration_options                | 2w           |
+| quay_install_openshift_role_feat_ui_v2                            | false        |
+| quay_install_openshift_role_feat_quota_management                 | false        |
+| quay_install_openshift_role_feat_garbage_collection               | false        |
+| quay_install_openshift_role_permanently_delete_tags               | -            |
+| quay_install_openshift_role_permanently_quota_total_delay_seconds | -            |
+| quay_install_openshift_role_config_secret_additional_parameters   | -            |
 
 ### Authentication variables
 | Variable                                             | Default  |
