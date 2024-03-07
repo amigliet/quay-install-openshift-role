@@ -9,6 +9,10 @@ spec:
   components:
     - kind: postgres
       managed: {{ quay_install_openshift_role_cr_postgres }}
+{% if quay_install_openshift_role_cr_postgres_overrides_volume_size is defined %}
+      overrides:
+        volumeSize: {{ quay_install_openshift_role_cr_postgres_overrides_volume_size }}
+{% endif %}
     - kind: objectstorage
       managed: {{ quay_install_openshift_role_cr_objectstorage }}
     - kind: redis
@@ -19,6 +23,10 @@ spec:
       managed: {{ quay_install_openshift_role_cr_route }}
     - kind: mirror
       managed: {{ quay_install_openshift_role_cr_mirror }}
+{% if quay_install_openshift_role_cr_mirror_overrides_replicas is defined %}
+      overrides:
+        replicas: {{ quay_install_openshift_role_cr_mirror_overrides_replicas }}
+{% endif %}
     - kind: tls
       managed: {{ quay_install_openshift_role_cr_tls }}
     - kind: monitoring
@@ -31,6 +39,21 @@ spec:
       managed: {{ quay_install_openshift_role_cr_clair }}
     - kind: clairpostgres
       managed: {{ quay_install_openshift_role_cr_clair }}
+    - kind: quay
+      managed: {{ quay_install_openshift_role_cr_quay }}
+{% if quay_install_openshift_role_cr_quay_overrides_env is defined or quay_install_openshift_role_cr_quay_overrides_replicas is defined %}
+      overrides:
+{% endif %}
+{% if quay_install_openshift_role_cr_quay_overrides_env is defined %}
+        env:
+{% for item in quay_install_openshift_role_cr_quay_overrides_env %}
+          - name: {{ item.name }}
+            value: {{ item.value }}
+{% endfor %}
+{% endif %}
+{% if quay_install_openshift_role_cr_quay_overrides_replicas is defined %}
+        replicas: {{ quay_install_openshift_role_cr_quay_overrides_replicas }}
+{% endif %}
 {% if quay_install_openshift_role_cr_configBundleSecret %}
   configBundleSecret: {{ quay_install_openshift_role_configBundleSecret_name }}
 {% endif %}

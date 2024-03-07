@@ -1,3 +1,12 @@
+{% if quay_install_openshift_role_action_log_archive_location is defined %}
+ACTION_LOG_ARCHIVE_LOCATION: {{ quay_install_openshift_role_action_log_archive_location }}
+{% endif %}
+{% if quay_install_openshift_role_action_log_archive_path is defined %}
+ACTION_LOG_ARCHIVE_PATH: {{ quay_install_openshift_role_action_log_archive_path }}
+{% endif %}
+{% if quay_install_openshift_role_action_log_rotation_threshold is defined %}
+ACTION_LOG_ROTATION_THRESHOLD: {{ quay_install_openshift_role_action_log_rotation_threshold }}
+{% endif %}
 ALLOW_PULLS_WITHOUT_STRICT_LOGGING: false
 AUTHENTICATION_TYPE: {{ quay_install_openshift_role_authentication_type }}
 {% if quay_install_openshift_role_swagger_enabled is sameas true %}
@@ -8,6 +17,9 @@ DEFAULT_TAG_EXPIRATION: 2w
 {{ lookup('template', 'storage.j2') }}
 {% endif %}
 ENTERPRISE_LOGO_URL: /static/img/quay-horizontal-color.svg
+{% if quay_install_openshift_role_feat_action_log_rotation is defined %}
+FEATURE_ACTION_LOG_ROTATION: {{ quay_install_openshift_role_feat_action_log_rotation | lower }}
+{% endif %}
 FEATURE_ANONYMOUS_ACCESS: {{ quay_install_openshift_role_feat_anonymous_access }}
 FEATURE_BUILD_SUPPORT: false
 FEATURE_DIRECT_LOGIN: true
@@ -18,7 +30,7 @@ FEATURE_PROXY_STORAGE: {{ quay_install_openshift_role_proxy_storage }}
 FEATURE_STORAGE_REPLICATION: {{ quay_install_openshift_role_storage_replication }}
 {% endif %}
 {% if quay_install_openshift_role_authentication_type == "LDAP" %}
-FEATURE_TEAM_SYNCING: {{ quay_install_openshift_role_feat_team_syncing }}
+FEATURE_TEAM_SYNCING: {{ quay_install_openshift_role_feat_team_syncing | lower }}
 LDAP_ADMIN_DN: {{ quay_install_openshift_role_ldap_admin_dn }}
 LDAP_ADMIN_PASSWD: {{ quay_install_openshift_role_ldap_admin_passwd }}
 LDAP_ALLOW_INSECURE_FALLBACK: false
@@ -60,6 +72,20 @@ SUPER_USERS:
 {% endfor %}
 {% endif %}
 TAG_EXPIRATION_OPTIONS:
-- 2w
+{% for item in quay_install_openshift_role_tag_expiration_options %}
+- {{ item }}
+{% endfor %}
 TEAM_RESYNC_STALE_TIME: 60m
 TESTING: false
+FEATURE_UI_V2: {{ quay_install_openshift_role_feat_ui_v2 | lower }}
+FEATURE_QUOTA_MANAGEMENT: {{ quay_install_openshift_role_feat_quota_management | lower }}
+FEATURE_GARBAGE_COLLECTION: {{ quay_install_openshift_role_feat_garbage_collection | lower }}
+{% if quay_install_openshift_role_permanently_delete_tags is defined %}
+PERMANENTLY_DELETE_TAGS: {{ quay_install_openshift_role_permanently_delete_tags | lower }}
+{% endif %}
+{% if quay_install_openshift_role_permanently_quota_total_delay_seconds is defined %}
+QUOTA_TOTAL_DELAY_SECONDS: {{ quay_install_openshift_role_permanently_quota_total_delay_seconds }}
+{% endif %}
+{% if quay_install_openshift_role_config_secret_additional_parameters is defined %}
+{{  quay_install_openshift_role_config_secret_additional_parameters }}
+{%- endif %}

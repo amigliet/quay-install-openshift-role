@@ -2,7 +2,7 @@
 
 ## Red Hat Quay Operator Subscription variables
 quay_install_openshift_role_channel: stable-3.9
-quay_install_openshift_role_csv_version: v3.9.1
+quay_install_openshift_role_csv_version: v3.9.2
 quay_install_openshift_role_operator_all_namespaces: true # if set to false, then operator installation is namespaced
 
 ## Quay namespace
@@ -18,6 +18,7 @@ quay_install_openshift_role_cr_mirror: true
 quay_install_openshift_role_cr_monitoring: true
 quay_install_openshift_role_cr_objectstorage: true
 quay_install_openshift_role_cr_postgres: true
+quay_install_openshift_role_cr_quay: true
 quay_install_openshift_role_cr_redis: true
 quay_install_openshift_role_cr_route: true
 quay_install_openshift_role_cr_tls: true
@@ -28,6 +29,9 @@ quay_install_openshift_role_configBundleSecret_name: "instance-quay-config-bundl
 quay_install_openshift_role_authentication_type: Database
 quay_install_openshift_role_feat_anonymous_access: true
 quay_install_openshift_role_feat_team_syncing: false
+quay_install_openshift_role_feat_ui_v2: false
+quay_install_openshift_role_feat_quota_management: false
+quay_install_openshift_role_feat_garbage_collection: false
 quay_install_openshift_role_proxy_storage: true
 quay_install_openshift_role_storage_replication: false
 quay_install_openshift_role_ldap_email_attr: mail
@@ -40,6 +44,8 @@ quay_install_openshift_role_s3_is_secure: true
 quay_install_openshift_role_s3_rhocs_hostname: s3.openshift-storage.svc.cluster.local
 quay_install_openshift_role_s3_rgw_hostname: s3.openshift-storage.svc
 quay_install_openshift_role_s3_backend: ''
+quay_install_openshift_role_tag_expiration_options:
+- 2w
 
 # Extras
 quay_install_openshift_role_swagger_enabled: false
