@@ -14,13 +14,14 @@ ansible-galaxy collection install 'community.kubernetes:>=1.2.1,<2.0.0'
 For default variables see [defaults/main.yaml](defaults/main.yaml).
 
 ### Generic variables
-| Variable                                          | Default      |
-| :------------------------------------------------ | :----------: |
-| quay_install_openshift_role_feat_anonymous_access | True         |
-| quay_install_openshift_role_registry_title        | Red Hat Quay |
-| quay_install_openshift_role_registry_title_short  | Red Hat Quay |
-| quay_install_openshift_role_super_users           | -            |
-| quay_install_openshift_role_validate_certs        | True         |
+| Variable                                                     | Default      |
+| :----------------------------------------------------------- | :----------: |
+| quay_install_openshift_role_feat_anonymous_access            | True         |
+| quay_install_openshift_role_registry_title                   | Red Hat Quay |
+| quay_install_openshift_role_registry_title_short             | Red Hat Quay |
+| quay_install_openshift_role_super_users                      | -            |
+| quay_install_openshift_role_validate_certs                   | True         |
+| quay_install_openshift_role_operator_subscription_config_env | -            |
 
 ### Authentication variables
 | Variable                                             | Default  |

@@ -11,6 +11,14 @@ metadata:
 {% endif %}
 spec:
   channel: {{ quay_install_openshift_role_channel }}
+{% if quay_install_openshift_role_operator_subscription_config_env is defined %}
+  config:
+    env:
+{% for env in quay_install_openshift_role_operator_subscription_config_env %}
+    - name: {{env.name}}
+      value: {{env.value}}
+{% endfor %}
+{% endif %}
   installPlanApproval: {{ installPlanApproval | default('Automatic') }}
   name: quay-operator
   source: redhat-operators
